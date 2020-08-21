@@ -1,0 +1,29 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: # This configuration does not affect the page_build event above
+      - created
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - run: npm install
+      - name: Publish to NPM
+        run: |
+          npm version "$(cut -d'/' -f3 <<<$GITHUB_REF)" --no-git-tag-version
+          npm publish --access public
