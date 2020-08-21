@@ -14,4 +14,5 @@ export const initialState: {
   },
 };
 
+console.log('trigger test');
 export const store = createContext(initialState);
