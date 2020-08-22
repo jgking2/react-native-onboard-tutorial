@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { Step } from "../types";
+import { ActiveStep } from "../types";
 import { useActiveStep } from "./useActiveStep";
 
 /**
@@ -7,10 +7,10 @@ import { useActiveStep } from "./useActiveStep";
  * @param onStep A function that is invoked when a step is taken
  */
 export const useStepListener = (
-  onStep: (current?: Step, previous?: Step) => void
+  onStep: (current?: ActiveStep, previous?: ActiveStep) => void
 ) => {
   const currentStep = useActiveStep();
-  const previousStep = useRef<Step>();
+  const previousStep = useRef<ActiveStep>();
   useEffect(() => {
     if (currentStep?.id !== previousStep.current?.id) {
       onStep(currentStep, previousStep.current);

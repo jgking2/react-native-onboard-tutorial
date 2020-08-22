@@ -1,12 +1,17 @@
-import {useTutorial} from './useTutorial';
-import {Step} from '../types';
+import { useTutorial } from "./useTutorial";
+import { ActiveStep } from "../types";
 
 /**
  * Returns the current step in the tutorial
  */
-export const useActiveStep = (): Step | undefined => {
+export const useActiveStep = (): ActiveStep | undefined => {
   const activeTutorial = useTutorial();
   const step = activeTutorial?.steps[activeTutorial.currentStep ?? 0];
-  //Return undefined if tutorial isn't active
-  return activeTutorial?.active ? step : undefined;
+  if (!activeTutorial?.active || !step) {
+    return undefined;
+  }
+  return {
+    _index: activeTutorial?.currentStep ?? 0,
+    ...step,
+  } as ActiveStep;
 };

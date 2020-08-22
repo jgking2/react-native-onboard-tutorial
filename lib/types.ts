@@ -5,17 +5,17 @@
  * Step - User takes a step in the tutorial
  * Complete - User completes the tutorial
  */
-export type TutorialEvent = 'start' | 'end' | 'complete' | 'step';
+export type TutorialEvent = "start" | "end" | "complete" | "step";
 
 export type Actions =
-  | 'tutorial/next'
-  | 'tutorial/set'
-  | 'tutorial/skip'
-  | 'tutorial/end'
-  | 'tutorial/event'
-  | 'tutorial/start';
+  | "tutorial/next"
+  | "tutorial/set"
+  | "tutorial/skip"
+  | "tutorial/end"
+  | "tutorial/event"
+  | "tutorial/start";
 
-type StepType = 'custom' | 'highlight' | 'highlightaction' | 'text';
+type StepType = "custom" | "highlight" | "highlightaction" | "text";
 
 export interface Step {
   id: string;
@@ -29,6 +29,10 @@ export interface Step {
    * Text specific to outlet, defaults to text.
    */
   outletText?: string;
+}
+
+export interface ActiveStep extends Step {
+  _index: number;
 }
 
 export interface Tutorial {
@@ -46,7 +50,7 @@ export interface TutorialState {
 }
 
 interface TutorialStepHookEvent {
-  direction: 'left' | 'right';
+  direction: "forward" | "backward";
 }
 
 export interface TutorialStepComponent {
@@ -54,6 +58,6 @@ export interface TutorialStepComponent {
   skip?: boolean;
   children?: any;
   text?: string;
-  onEnter: (event: TutorialStepHookEvent) => void;
-  onExit: (event: TutorialStepHookEvent) => void;
+  onEnter?: (event: TutorialStepHookEvent) => void;
+  onExit?: (event: TutorialStepHookEvent) => void;
 }
