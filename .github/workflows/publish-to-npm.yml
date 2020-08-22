@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v1
       - name: Cache node_modules
@@ -25,5 +25,4 @@ jobs:
       - run: npm install
       - name: Publish to NPM
         run: |
-          npm version "$(cut -d'/' -f3 <<<$GITHUB_REF)" --no-git-tag-version
           npm publish --access public
