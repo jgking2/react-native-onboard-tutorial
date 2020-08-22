@@ -22,7 +22,6 @@ const TutorialProvider = ({
         state: TutorialState,
         { type, payload }: { type: Actions; payload: any }
       ) => {
-        console.log(type);
         switch (type) {
           case "tutorial/set":
             return {

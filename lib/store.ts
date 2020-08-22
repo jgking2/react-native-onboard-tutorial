@@ -1,5 +1,5 @@
-import {createContext} from 'react';
-import {Actions, TutorialState} from './types';
+import { createContext } from "react";
+import { Actions, TutorialState } from "./types";
 
 export const initialState: {
   dispatch: React.Dispatch<{

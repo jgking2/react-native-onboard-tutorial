@@ -1,14 +1,15 @@
-name: Run Unit Tests
+name: Publish to NPM
 
 on:
-  pull_request:
-    paths:
-      - "**.ts"
-      - "**.tsx"
+  release:
+    types: # This configuration does not affect the page_build event above
+      - created
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+    env:
+      NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v1
       - name: Cache node_modules
@@ -21,7 +22,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: Run Unit Tests
+      - run: npm install
+      - name: Publish to NPM
         run: |
-          npm install
-          npm test
+          npm publish --access public
