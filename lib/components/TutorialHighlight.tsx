@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import * as React from "react";
 import { Animated, ViewStyle, StyleProp } from "react-native";
 import { TutorialStepComponent } from "../types";
 import { TutorialStep } from "./TutorialStep";
@@ -19,7 +19,7 @@ const EmphasizeChild = ({
   style,
   emphasisScale,
 }: EmphasizeChildProps) => {
-  const animation = useRef(new Animated.Value(1));
+  const animation = React.useRef(new Animated.Value(1));
   const action = Animated.loop(
     Animated.sequence([
       Animated.loop(
@@ -41,7 +41,7 @@ const EmphasizeChild = ({
     ])
   );
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (active) {
       action.start();
     } else {

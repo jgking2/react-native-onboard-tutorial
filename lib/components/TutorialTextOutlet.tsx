@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import * as React from "react";
 import {
   ViewStyle,
   StyleProp,
@@ -6,9 +6,9 @@ import {
   Text,
   TextProps,
   StyleSheet,
-} from 'react-native';
-import {useActiveStep} from '../hooks';
-import {Step} from '../types';
+} from "react-native";
+import { useActiveStep } from "../hooks";
+import { Step } from "../types";
 
 const alwaysTrue = () => true;
 
@@ -36,7 +36,7 @@ export const TutorialTextOutlet = ({
 }: TutorialTextOutletProps<TextProps>) => {
   const activeStep = useActiveStep();
 
-  const shouldDisplay = useMemo(() => {
+  const shouldDisplay = React.useMemo(() => {
     let filterIncludesOutlet = stepFilter(activeStep);
     let validDisplay = activeStep?.showOutlet ?? false;
     return validDisplay && filterIncludesOutlet;
@@ -56,8 +56,8 @@ export const TutorialTextOutlet = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
