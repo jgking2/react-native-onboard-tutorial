@@ -17,15 +17,19 @@ export const TutorialStep = ({
   const [isActive, setIsActive] = React.useState(false);
   const [step, setStep] = React.useState<Step | undefined>(undefined);
   useStepListener((current, previous) => {
+    let direction: "backward" | "forward" =
+      (current?._index ?? 0) >= (previous?._index ?? 0)
+        ? "forward"
+        : "backward";
     if (current?.id === stepId) {
       setIsActive(true);
       setStep(current);
-      onEnter({ direction: "left" });
+      onEnter({ direction });
     }
     if (previous?.id === stepId) {
       setIsActive(false);
       setStep(undefined);
-      onExit({ direction: "right" });
+      onExit({ direction });
     }
   });
 

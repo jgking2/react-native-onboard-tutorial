@@ -72,6 +72,7 @@ describe("TutorialProvider", () => {
     expect(onExit).toBeCalledTimes(0);
 
     fireEvent.press(continueButton);
+    expect(onEnter).toBeCalledWith({ direction: "forward" });
     expect(onEvent).toBeCalledTimes(1);
     expect(onEnter).toBeCalledTimes(1);
     expect(onExit).toBeCalledTimes(1);
@@ -85,8 +86,10 @@ describe("TutorialProvider", () => {
     expect(secondStep).toBeDefined();
     //Alrightlet's go back.
     fireEvent.press(backButton);
+    expect(onEnter).toBeCalledWith({ direction: "backward" });
     expect(onEvent).toBeCalledTimes(2);
     expect(onExitHighlight).toBeCalledTimes(1);
+    expect(onExitHighlight).toBeCalledWith({ direction: "backward" });
     expect(onEnter).toBeCalledTimes(2);
 
     const outlet = await queryByText(tutorial.steps[1].outletText!);
