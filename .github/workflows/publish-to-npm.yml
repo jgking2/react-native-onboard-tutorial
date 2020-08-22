@@ -26,4 +26,5 @@ jobs:
       - name: Publish to NPM
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          npm version patch
           npm publish --access public
