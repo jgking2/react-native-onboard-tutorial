@@ -1,13 +1,13 @@
 {
   "name": "react-native-onboard-tutorial",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple, highly customizable library to help onboard users to your app!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest --coverage",
     "build": "tsc",
-    "prepublish": "npm build"
+    "prepublish": "npm run build"
   },
   "files": [
     "/dist"
