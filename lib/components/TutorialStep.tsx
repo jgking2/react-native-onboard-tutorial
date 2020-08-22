@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import * as React from "react";
 import { useStepListener } from "../hooks";
-import { TutorialStepComponent, Step as TSD } from "../types";
+import { TutorialStepComponent, Step } from "../types";
 
 export interface TutorialStepProps extends TutorialStepComponent {
   children: (text: string | undefined, active: boolean) => any;
@@ -14,8 +14,8 @@ export const TutorialStep = ({
   onEnter = () => {},
   onExit = () => {},
 }: TutorialStepProps) => {
-  const [isActive, setIsActive] = useState(false);
-  const [step, setStep] = useState<TSD | undefined>(undefined);
+  const [isActive, setIsActive] = React.useState(false);
+  const [step, setStep] = React.useState<Step | undefined>(undefined);
   useStepListener((current, previous) => {
     if (current?.id === stepId) {
       setIsActive(true);

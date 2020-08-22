@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import * as React from "react";
 import {
   StyleSheet,
   ViewStyle,
@@ -8,13 +8,13 @@ import {
   View,
   Alert,
   TextProps,
-} from 'react-native';
+} from "react-native";
 import {
   useNextTutorialStep,
   useEndTutorial,
   useTutorial,
   useActiveStep,
-} from '../hooks';
+} from "../hooks";
 
 interface TutorialControlsProps {
   backText?: string;
@@ -30,13 +30,13 @@ interface TutorialControlsProps {
 }
 
 export const TutorialControls = ({
-  backText = 'Back',
+  backText = "Back",
   backTextProps = {},
   backStyle,
-  nextText = 'Next',
+  nextText = "Next",
   nextTextProps = {},
   nextStyle,
-  skipText = 'Skip',
+  skipText = "Skip",
   skipTextProps = {},
   skipStyle,
   containerStyle,
@@ -46,17 +46,17 @@ export const TutorialControls = ({
   const takeStep = useNextTutorialStep();
   const endTutorial = useEndTutorial();
 
-  const confirmThenEnd = useCallback(() => {
-    Alert.prompt('Cancel tutorial', 'Are you sure?', [
-      {text: 'Yep!', onPress: endTutorial, style: 'destructive'},
-      {text: 'Nevermind', onPress: () => {}, style: 'cancel'},
+  const confirmThenEnd = React.useCallback(() => {
+    Alert.prompt("Cancel tutorial", "Are you sure?", [
+      { text: "Yep!", onPress: endTutorial, style: "destructive" },
+      { text: "Nevermind", onPress: () => {}, style: "cancel" },
     ]);
   }, [endTutorial]);
-  const stepForward = useCallback(() => {
+  const stepForward = React.useCallback(() => {
     takeStep();
   }, [takeStep]);
 
-  const stepBack = useCallback(() => {
+  const stepBack = React.useCallback(() => {
     //Prevent ending the tutorial
     if (tutorial?.currentStep) {
       takeStep(-1);
@@ -68,17 +68,20 @@ export const TutorialControls = ({
       <TouchableOpacity
         style={[defaultStyles.button, backStyle]}
         disabled={!tutorial.currentStep}
-        onPress={stepBack}>
+        onPress={stepBack}
+      >
         <Text {...backTextProps}>{backText}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[defaultStyles.button, nextStyle]}
-        onPress={stepForward}>
+        onPress={stepForward}
+      >
         <Text {...nextTextProps}>{nextText}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[defaultStyles.button, skipStyle]}
-        onPress={confirmThenEnd}>
+        onPress={confirmThenEnd}
+      >
         <Text {...skipTextProps}>{skipText}</Text>
       </TouchableOpacity>
     </View>
@@ -87,19 +90,19 @@ export const TutorialControls = ({
 
 const defaultStyles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(256,256,256,.9)',
+    backgroundColor: "rgba(256,256,256,.9)",
     borderRadius: 10,
     marginHorizontal: 10,
-    flexDirection: 'row',
-    shadowColor: 'rgba(0,0,0,.5)',
-    shadowOffset: {width: 1, height: 1},
+    flexDirection: "row",
+    shadowColor: "rgba(0,0,0,.5)",
+    shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
   },
   button: {
     padding: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     flex: 1,
   },
 });

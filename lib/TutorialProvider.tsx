@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from "react";
+import * as React from "react";
 import { Actions, TutorialState, Tutorial, TutorialEvent } from "./types";
 import { store, initialState } from "./store";
 
@@ -16,8 +16,8 @@ const TutorialProvider = ({
   tutorial,
   onEvent = noop,
 }: TutorialProviderProps) => {
-  const [state, dispatch] = useReducer(
-    useCallback(
+  const [state, dispatch] = React.useReducer(
+    React.useCallback(
       (
         state: TutorialState,
         { type, payload }: { type: Actions; payload: any }
