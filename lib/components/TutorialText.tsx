@@ -74,6 +74,7 @@ export const TutorialText = ({
         return (
           <>
             <View
+              accessibilityLabel={active ? text ?? stepText : ""}
               pointerEvents={"none"}
               style={{
                 zIndex: 200,
