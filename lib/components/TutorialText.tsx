@@ -66,6 +66,8 @@ const TutorialTextBlock = ({
 export const TutorialText = ({
   children,
   text,
+  containerStyle,
+  textStyle,
   ...props
 }: TutorialTextProps) => {
   return (
@@ -83,7 +85,12 @@ export const TutorialText = ({
                 overflow: "visible",
               }}
             >
-              <TutorialTextBlock text={text ?? stepText} visible={active} />
+              <TutorialTextBlock
+                text={text ?? stepText}
+                visible={active}
+                textStyle={textStyle}
+                containerStyle={containerStyle}
+              />
             </View>
             {children}
           </>
