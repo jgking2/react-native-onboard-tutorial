@@ -19,6 +19,7 @@ import {
   Button,
   Pressable,
   Alert,
+  FlatList,
 } from 'react-native';
 
 import {
@@ -38,6 +39,7 @@ import {
   TutorialTextOutlet,
   TutorialControls,
 } from 'react-native-onboard-tutorial';
+import {styles} from './styles';
 
 declare const global: {HermesInternal: null | {}};
 
@@ -48,12 +50,22 @@ const tutorial: Tutorial = {
   steps: [
     {
       id: 'stepone',
-      text: 'React Native!!!',
+      text: 'Tutorial Step One, take a look at this!',
     },
     {
       id: 'steptwo',
-      text: 'Throb!!',
+      text:
+        'Notice the area below is emphasized!\nCurrently we provide a throb highlight, but its possible to bake your own!',
       showOutlet: true,
+    },
+    {
+      id: 'third',
+      text:
+        "Use the onEnter, and onExit to do whatever\nyou'd like as a user navigates too\nand from the step!",
+    },
+    {
+      id: 'fourth',
+      text: `Use any style you'd like on the steps!`,
     },
   ],
 };
@@ -61,12 +73,12 @@ const tutorial: Tutorial = {
 const App = () => {
   const scrollView = useRef<ScrollView>();
   const nextStep = useNextTutorialStep();
-
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <ScrollView
+          ref={scrollView}
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
           <Header />
@@ -75,42 +87,72 @@ const App = () => {
               <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
           )}
-          <TutorialTextOutlet />
-          <View style={styles.body}>
-            <TutorialText
-              stepId={'stepone'}
-              onExit={console.log}
-              onEnter={console.log}>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Step One</Text>
-                <Text style={styles.sectionDescription}>
-                  Edit <Text style={styles.highlight}>App.tsx</Text> to change
-                  this screen and then come back to see your edits.
-                </Text>
-              </View>
-            </TutorialText>
-            <TutorialHighlight emphasisScale={1.2} stepId={'steptwo'}>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>See Your Changes</Text>
-                <Text style={styles.sectionDescription}>
-                  <ReloadInstructions />
-                </Text>
-              </View>
-            </TutorialHighlight>
+          <TutorialTextOutlet
+            containerStyle={{padding: 20, backgroundColor: '#eee'}}
+            textProps={{style: {fontWeight: '600'}}}
+          />
+          {/* <View style={styles.body}> */}
+          <TutorialText
+            stepId={'stepone'}
+            onExit={console.log}
+            onEnter={console.log}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Step One</Text>
+              <Text style={styles.sectionDescription}>
+                Edit <Text style={styles.highlight}>App.tsx</Text> to change
+                this screen and then come back to see your edits.
+              </Text>
+            </View>
+          </TutorialText>
+          <TutorialHighlight
+            onEnter={({direction}) => {
+              if (direction === 'forward') {
+                scrollView.current?.scrollTo({y: 40});
+              }
+            }}
+            emphasisScale={1.05}
+            stepId={'steptwo'}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>See Your Changes</Text>
+              <Text style={styles.sectionDescription}>
+                <ReloadInstructions />
+              </Text>
+            </View>
+          </TutorialHighlight>
+          <TutorialText
+            stepId={'third'}
+            onEnter={({direction}) => {
+              if (direction === 'forward') {
+                scrollView.current?.scrollTo({y: 80});
+              }
+            }}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Debug</Text>
               <Text style={styles.sectionDescription}>
                 <DebugInstructions />
               </Text>
             </View>
+          </TutorialText>
+          <TutorialText
+            stepId={'fourth'}
+            containerStyle={{backgroundColor: 'red'}}
+            textStyle={{
+              fontWeight: '800',
+              fontSize: 24,
+              fontFamily: 'Times New Roman',
+              color: '#fff',
+            }}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Learn More</Text>
               <Text style={styles.sectionDescription}>
                 Read the docs to discover what to do next:
               </Text>
             </View>
+          </TutorialText>
+          <View style={styles.body}>
             <LearnMoreLinks />
           </View>
+          {/* </View> */}
         </ScrollView>
         <TutorialControls containerStyle={{position: 'absolute', bottom: 20}} />
       </SafeAreaView>
@@ -118,52 +160,13 @@ const App = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
-
 export default () => {
   return (
     <TutorialProvider
       tutorial={tutorial}
       onEvent={(event, data) => {
         if (event === 'complete') {
-          Alert.alert('Thank you for completing the tutorial!');
+          Alert.alert('Add hooks to tutorial events!');
         }
       }}>
       <App />
