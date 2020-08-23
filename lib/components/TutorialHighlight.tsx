@@ -68,13 +68,19 @@ export interface TutorialHighlightProps
 export const TutorialHighlight = ({
   children,
   skip = false,
+  style,
+  emphasisScale,
   ...rest
 }: TutorialHighlightProps) => {
   return (
     <TutorialStep {...rest}>
       {(_, active) => {
         return (
-          <EmphasizeChild {...rest} active={active}>
+          <EmphasizeChild
+            style={style}
+            emphasisScale={emphasisScale}
+            active={active}
+          >
             {children}
           </EmphasizeChild>
         );
