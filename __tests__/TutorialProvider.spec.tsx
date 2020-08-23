@@ -41,7 +41,7 @@ describe("TutorialProvider", () => {
     const onEnterHighlight = jest.fn();
     const onExitHighlight = jest.fn();
 
-    const { getByText, queryByText } = render(
+    const { getByText, queryByText, getByA11yLabel, queryByA11yLabel } = render(
       <TutorialProvider tutorial={tutorial} onEvent={onEvent}>
         <View>
           <TutorialTextOutlet />
@@ -66,18 +66,24 @@ describe("TutorialProvider", () => {
 
     const backButton = getByText(backButtonText);
     const continueButton = getByText(nextButtonText);
-    const matches = await getByText("First!");
+    const matches = await getByA11yLabel("First!");
     expect(matches).toBeDefined();
     expect(onEnter).toBeCalledTimes(1);
     expect(onExit).toBeCalledTimes(0);
-
+    expect(onEnter).toBeCalledWith({
+      direction: "forward",
+      step: tutorial.steps[0],
+    });
     fireEvent.press(continueButton);
-    expect(onEnter).toBeCalledWith({ direction: "forward" });
+    expect(onExit).toBeCalledWith({
+      direction: "forward",
+      step: tutorial.steps[0],
+    });
     expect(onEvent).toBeCalledTimes(1);
     expect(onEnter).toBeCalledTimes(1);
     expect(onExit).toBeCalledTimes(1);
     //Initial tag disappears.
-    const shouldBeUndefined = await queryByText("First!");
+    const shouldBeUndefined = await queryByA11yLabel("First!");
     expect(shouldBeUndefined).toBeNull();
 
     //Let's check on the second step - should show up in the outlet.
@@ -86,10 +92,16 @@ describe("TutorialProvider", () => {
     expect(secondStep).toBeDefined();
     //Alrightlet's go back.
     fireEvent.press(backButton);
-    expect(onEnter).toBeCalledWith({ direction: "backward" });
+    expect(onEnter).toBeCalledWith({
+      direction: "backward",
+      step: tutorial.steps[0],
+    });
     expect(onEvent).toBeCalledTimes(2);
     expect(onExitHighlight).toBeCalledTimes(1);
-    expect(onExitHighlight).toBeCalledWith({ direction: "backward" });
+    expect(onExitHighlight).toBeCalledWith({
+      direction: "backward",
+      step: tutorial.steps[1],
+    });
     expect(onEnter).toBeCalledTimes(2);
 
     const outlet = await queryByText(tutorial.steps[1].outletText!);

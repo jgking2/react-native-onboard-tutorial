@@ -10,9 +10,7 @@ export type TutorialEvent = "start" | "end" | "complete" | "step";
 export type Actions =
   | "tutorial/next"
   | "tutorial/set"
-  | "tutorial/skip"
   | "tutorial/end"
-  | "tutorial/event"
   | "tutorial/start";
 
 type StepType = "custom" | "highlight" | "highlightaction" | "text";
@@ -51,11 +49,11 @@ export interface TutorialState {
 
 interface TutorialStepHookEvent {
   direction: "forward" | "backward";
+  step?: Step;
 }
 
 export interface TutorialStepComponent {
   stepId?: string;
-  skip?: boolean;
   children?: any;
   text?: string;
   onEnter?: (event: TutorialStepHookEvent) => void;
