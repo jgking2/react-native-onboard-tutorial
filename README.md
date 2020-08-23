@@ -4,7 +4,7 @@
 npm i react-native-onboard-tutorial
 ```
 
-![React Native Onboard Tutorial](docs/demo.gif)
+<img src="docs/demo.gif" width="200" />
 
 # TODO
 
