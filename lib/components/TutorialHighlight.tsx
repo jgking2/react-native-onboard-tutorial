@@ -45,9 +45,9 @@ const EmphasizeChild = ({
     if (active) {
       action.start();
     } else {
-      action.stop();
+      action.reset();
     }
-    return action.stop;
+    return action.reset;
   }, [active]);
   return (
     <Animated.View
