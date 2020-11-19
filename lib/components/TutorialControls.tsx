@@ -47,7 +47,7 @@ export const TutorialControls = ({
   const endTutorial = useEndTutorial();
 
   const confirmThenEnd = React.useCallback(() => {
-    Alert.prompt("Cancel tutorial", "Are you sure?", [
+    Alert.alert("Cancel tutorial", "Are you sure?", [
       { text: "Yep!", onPress: endTutorial, style: "destructive" },
       { text: "Nevermind", onPress: () => {}, style: "cancel" },
     ]);
