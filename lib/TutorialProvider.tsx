@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Actions, TutorialState, Tutorial, TutorialEvent } from "./types";
 import { store, initialState } from "./store";
-import { TutorialOverlay } from "./components/TutorialOverlay";
 
 const noop = () => {};
 const { Provider } = store;
