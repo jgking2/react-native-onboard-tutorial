@@ -72,12 +72,7 @@ const TutorialProvider = ({
       activeTutorial: tutorial,
     }
   );
-  return (
-    <Provider value={{ state, dispatch }}>
-      {children}
-      <TutorialOverlay />
-    </Provider>
-  );
+  return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
 
 export { store, TutorialProvider };
