@@ -1,6 +1,6 @@
-import * as React from "react";
+import React from "react";
 import { Animated, ViewStyle, StyleProp } from "react-native";
-import { TutorialStepComponent } from "../types";
+import type { TutorialStepComponent } from "../types";
 import { TutorialStep } from "./TutorialStep";
 
 interface SharedProps {

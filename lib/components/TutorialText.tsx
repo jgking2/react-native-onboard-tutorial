@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import {
   Animated,
   Easing,
@@ -10,7 +10,7 @@ import {
   ViewStyle,
 } from "react-native";
 import { TutorialStep } from "./TutorialStep";
-import { TutorialStepComponent } from "../types";
+import type { TutorialStepComponent } from "../types";
 
 interface TutorialTextBlockProps {
   visible?: boolean;

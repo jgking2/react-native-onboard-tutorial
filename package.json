@@ -1,6 +1,6 @@
 {
   "name": "react-native-onboard-tutorial",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "A simple, highly customizable library to help onboard users to your app!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

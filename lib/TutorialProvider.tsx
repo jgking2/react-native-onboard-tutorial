@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Actions, TutorialState, Tutorial, TutorialEvent } from "./types";
 import { store, initialState } from "./store";
+import { TutorialOverlay } from "./components/TutorialOverlay";
 
 const noop = () => {};
 const { Provider } = store;
@@ -71,7 +72,12 @@ const TutorialProvider = ({
       activeTutorial: tutorial,
     }
   );
-  return <Provider value={{ state, dispatch }}>{children}</Provider>;
+  return (
+    <Provider value={{ state, dispatch }}>
+      {children}
+      <TutorialOverlay />
+    </Provider>
+  );
 };
 
 export { store, TutorialProvider };

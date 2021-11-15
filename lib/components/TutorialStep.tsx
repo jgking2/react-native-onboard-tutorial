@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useStepListener, useStep } from "../hooks";
-import { TutorialStepComponent, Step } from "../types";
+import type { TutorialStepComponent } from "../types";
 
 export interface TutorialStepProps extends TutorialStepComponent {
   children: (text: string | undefined, active: boolean) => any;

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import {
   ViewStyle,
   StyleProp,
@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { useActiveStep } from "../hooks";
-import { Step } from "../types";
+import type { Step } from "../types";
 
 const alwaysTrue = () => true;
 
